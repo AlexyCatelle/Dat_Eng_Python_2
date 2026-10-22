@@ -29,15 +29,10 @@ dict_lettres = {"green":[],"red" :[], "light_grey" : []}
 
 # Fonction affichage avec les couleurs
 def affichage (liste):
-        #print(f'liste : {liste}')
+
     res = ""
     for c in liste :
-         #print(f'c : {c}')
-            #print(f'c 0 : {c[0]}')
-            #print(f'c 1 : {c[1]}')
-
         res += f'{colored(c[0],c[1])}'
-        #print( f'res update : {res}')
     return res
 
 
