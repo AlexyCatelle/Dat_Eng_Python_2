@@ -1,5 +1,6 @@
 import game
 import random
+import interface
 
 all_words = game.load_words()
 
@@ -23,6 +24,8 @@ if long_mot < shortest_words or long_mot > longest_words:
 target = game.choose_word(all_words, long_mot)
 
 print(target)
+
+interface.run(long_mot)
 
 while nb_tentative < 6 and not winner:
 
