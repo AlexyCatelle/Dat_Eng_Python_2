@@ -1,92 +1,98 @@
 from termcolor import colored
+import random
 # Récupérer la liste de mots
 with open("mots.txt", "r", encoding="utf-8") as file:
-    all_words = [line.strip().lower() for line in file]
+    all_words = [line.strip() for line in file]
 
-#print(len(all_words))
-
-#print(colored('hello', 'red'), colored('world', 'green'))
-
-
+longest_words = max(len(word) for word in all_words)
+shortest_words = min(len(word) for word in all_words)
 
 # Possibilité de choisir sa longeur de mots, par défaut 5.
+long_mot = int(input(f'Longueur du mot souhaité (minimum : {shortest_words}, maximum : {longest_words}):'))
+
+
+# Si valeur ne respecte pas les bornes alors choisi une longueur aléatoire entre les bornes :
+if long_mot < shortest_words or long_mot > longest_words :
+    long_mot = random.randint(shortest_words, longest_words)
+    print(f'valeur incorrecte ! je décide moi-même ! ça sera : {long_mot}')
 
 # filtrer liste selon longueur définie par le joueur
 
+flitred_words = [word for word in all_words if len(word) == long_mot]
+
 # choisir un mot aléatoire dans la liste filtrée par longueur
-cible = "tiret"
-tentative = "texte"
-
-liste_tentative = list(tentative)
+cible = random.choice(flitred_words)
+print(cible)
 liste_cible = list(cible)
+dict_lettres = {"green":[],"red" :[], "light_grey" : []}
 
-# Liste qui stock les lettres tentées bien placée et leur index (vert)
 
-# Liste qui stock les lettres trouvées mais mal placée et leur index (orange)
-
-# Liste qui stock les lettres tentées et absentes (noir)
-
-# Boucle tentative pour max 6:
-    # Demander un mot au joueur
-    # Vérifier que alpha
-        #Si oui continue
-
-        #Si non = Erreur et redemande un mot
-
-    # Vérifier la longueur du mot proposer par le joueur
-        # Si bonne longueur :
-            # augmente le compteur de 1
-
-        # vérifier si le mot est le bon
-            # si bon : terminé victoire 
-        # si différent :
-            # Split les mots cible (array_1) et tentative(array_2) pour stocker en tableau
-liste_tentative = list(tentative)
-liste_cible = list(cible)
-liste_affichage = []
-dict_lettres = {"green":[],"red" :[], "light_grey" : []}          
-
-                # boucle pour comparer chaque index des deux tableaux
-
-for i in range ((len(tentative))) :
-    #Si lettre correcte et bien placée
-    if liste_tentative[i] == liste_cible[i] :
-        liste_affichage.append([liste_tentative[i],"green"])
-        dict_lettres["green"].append([liste_tentative[i],i])
-
-    elif liste_tentative[i] in liste_cible :
-        liste_affichage.append([liste_tentative[i],"red"])
-        dict_lettres["red"].append([liste_tentative[i],i])
-
-    else :
-        liste_affichage.append([liste_tentative[i],"light_grey"])
-        dict_lettres["light_grey"].append([liste_tentative[i],i])
-
+# Fonction affichage avec les couleurs
 def affichage (liste):
+        #print(f'liste : {liste}')
     res = ""
     for c in liste :
+         #print(f'c : {c}')
+            #print(f'c 0 : {c[0]}')
+            #print(f'c 1 : {c[1]}')
+
         res += f'{colored(c[0],c[1])}'
+        #print( f'res update : {res}')
     return res
 
-print(liste_cible)
-print(affichage(liste_affichage))
-print(dict_lettres)
+
+# Boucle tentative pour max 6:
+nb_tentative = 0
+winner = False
+
+while nb_tentative < 6 and not winner :
+    # Demander un mot au joueur
+    while True :
+        tentative = input("What is your word: ").upper()
+        
+        # Vérifier que alpha
+        if not tentative.isalpha():
+            print(" Ne doit contenir que des lettres")
     
+        # Vérifie la longueur du mot tentative    
+        elif len(tentative) != long_mot:
+            print(f'Your word should be {long_mot} characters')
+        
+        else:
+            break;
 
-                    # tant qu'il reste des lettres a vérifier 
-                        
-                            # Stock dans la liste verte
-                            #continue
-                        # Si lettre correcte mais mal placé
-                            # Stock dans orange
-                            # continue
-                        #Si lettre incorrecte
-                            # Stock dans noir
-                            # Continue
+    # vérifier si le mot est le bon
+    if tentative == cible :
+            # si bon : terminé victoire
+        winner = True
+        print("Vous avez gagnez !")
 
-                # Affichage résultat
-                    #
-                #(rendu) Si lettre ni verte ni orange alors noires
 
-        # Si mauvaise longueur alors retour demander un mot avec message d'erreur
+    # si différent :
+    # Split le mot tentativepour stocker en tableau
+    liste_tentative = list(tentative)
+    liste_affichage = []
+
+# boucle pour comparer chaque index des deux tableaux
+    for i in range ((len(tentative))) :
+
+        #Si lettre correcte et bien placée : Stock dans vert
+        if liste_tentative[i] == liste_cible[i] :
+            liste_affichage.append([liste_tentative[i],"green"])
+            dict_lettres["green"].append([liste_tentative[i],i])
+
+
+        # Si lettre correcte mais mal placé : Stock dans rouge
+        elif liste_tentative[i] in liste_cible :
+            liste_affichage.append([liste_tentative[i],"red"])
+            dict_lettres["red"].append([liste_tentative[i],i])
+    
+        #Si lettre incorrecte : Stock dans noir
+        else :
+            liste_affichage.append([liste_tentative[i],"light_grey"])
+            dict_lettres["light_grey"].append([liste_tentative[i],i])
+
+    # Affichage résultat
+    print(affichage(liste_affichage))
+
 
