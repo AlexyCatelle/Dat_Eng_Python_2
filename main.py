@@ -46,7 +46,7 @@ while nb_tentative < 6 and not winner:
         print("Vous avez gagné !")
     else:
         # Afficher le résultat de la tentative
-        print(game.check_word(attempt, target))
+        print(game.check_letters(attempt, target))
 
 if not winner:
     print(f"Perdu ! Le mot était {target}.")

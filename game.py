@@ -21,12 +21,16 @@ def check_letters(attempt, target):
     result = []
 
     for i in range(len(attempt)):
-        if attempt[i] == target[i]:
-            result.append("green")
-        elif attempt[i] in target:
-            result.append("yellow")
+        letter = attempt[i]
+
+        if letter == target[i]:
+            color = "green"
+        elif letter in target:
+            color = "yellow"
         else:
-            result.append("grey")
+            color = "grey"
+
+        result.append((letter, color))
 
     return result
 
