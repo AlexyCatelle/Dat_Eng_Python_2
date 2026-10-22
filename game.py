@@ -7,6 +7,10 @@ def load_words():
         all_words = [line.strip().upper() for line in file]
     return all_words
 
+# 
+def get_availables_lengths(words) :
+    return sorted(set(len(word) for word in words))
+
 # Choisir un mot aléatoirement dans la liste en fonction de la taille
 def choose_word(words, length):
     filtered_words = [

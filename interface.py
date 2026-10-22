@@ -1,51 +1,44 @@
 import pygame
-
-widht, height = 600, 700
-
-# Couleurs RGB
-background_color = (18, 18, 19)
-white_color = (255, 255, 255)
-border_color = (80, 80, 80)
-
-# Grille
-rows = 6
-cell_size = 52
-gap = 8
-grid_top = 110
-
+import settings as s
 
 def draw_grid(screen, word_length) :
 
     cell_SIZE = min(
-        cell_size,
-        (widht - 80 - gap * (word_length - 1)) // word_length
+        s.cell_size,
+        (s.widht - 80 - s.gap * (word_length - 1)) // word_length
     )
 
-    grid_width = word_length * cell_size + (word_length - 1) * gap
-    start_x = (widht - grid_width) // 2
+    grid_width = word_length * s.cell_size + (word_length - 1) * s.gap
+    start_x = (s.widht - grid_width) // 2
 
-    for row in range(rows):
+    for row in range(s.rows):
         for col in range(word_length):
-            x = start_x + col * (cell_size + gap)
-            y = grid_top + row * (cell_size + gap)
+            x = start_x + col * (s.cell_size + s.gap)
+            y = s.grid_top + row * (s.cell_size + s.gap)
 
             pygame.draw.rect(
                 screen,
-                border_color,
-                (x, y, cell_size, cell_size),
+                s.border_color,
+                (x, y, s.cell_size, s.cell_size),
                 width=2
             )
 
 
-def run(word_length):
+def run(word_length, target):
     pygame.init()
+    # Conserve les lignes déjà validées
+    attempts = [""] * 6
+    # Lettres en train d'être tapées
+    current_attempt = ""
+    # Ligne active
+    current_row = 0
 
     # titre
     title_font = pygame.font.SysFont("arial", 40, bold=True)
-    title = title_font.render("WORDLE", True, white_color)
-    title_box = title.get_rect(center=(widht //2, 55))
+    title = title_font.render("WORDLE", True, s.white_color)
+    title_box = title.get_rect(center=(s.widht //2, 55))
     
-    screen = pygame.display.set_mode((widht, height))
+    screen = pygame.display.set_mode((s.widht, s.height))
     pygame.display.set_caption("Wordle")
 
     clock = pygame.time.Clock()

@@ -7,6 +7,8 @@ all_words = game.load_words()
 if not all_words:
     raise ValueError("Le fichier mots.txt ne contient aucun mot.")
 
+game.get_availables_lengths(all_words)
+
 longest_words = max(len(word) for word in all_words)
 shortest_words = min(len(word) for word in all_words)
 
@@ -24,12 +26,15 @@ target = game.choose_word(all_words, long_mot)
 
 print(target)
 
-nb_tentative = 0
-winner = False
+
 
 interface.run(long_mot)
 
-"""while nb_tentative < 6 and not winner:
+
+"""
+nb_tentative = 0
+winner = False
+while nb_tentative < 6 and not winner:
 
     # Demander un mot jusqu'à ce qu'il soit valide
     while True:
