@@ -1,64 +1,52 @@
 import game
-import random
+import selection
 import interface
-
-all_words = game.load_words()
-
-if not all_words:
-    raise ValueError("Le fichier mots.txt ne contient aucun mot.")
-
-game.get_availables_lengths(all_words)
-
-longest_words = max(len(word) for word in all_words)
-shortest_words = min(len(word) for word in all_words)
+import result
 
 
-long_mot = int(input(
-    f"Longueur du mot souhaité "
-    f"(minimum : {shortest_words}, maximum : {longest_words}) : "
-))
+def main():
+    all_words = game.load_words()
 
-if long_mot < shortest_words or long_mot > longest_words:
-    long_mot = random.randint(shortest_words, longest_words)
+    if not all_words:
+        raise ValueError("Le fichier mots.txt est vide.")
 
+    available_lengths = game.get_availables_lengths(all_words)
 
-target = game.choose_word(all_words, long_mot)
-
-print(target)
-
-
-
-interface.run(long_mot)
-
-
-"""
-nb_tentative = 0
-winner = False
-while nb_tentative < 6 and not winner:
-
-    # Demander un mot jusqu'à ce qu'il soit valide
     while True:
-        attempt = input("What is your word: ").upper()
+        word_length = selection.run(available_lengths)
 
-        is_valid, message = game.validate_word(attempt, long_mot)
-
-        if not is_valid:
-            print(message)
-        else:
+        if word_length is None:
             break
 
-    # Une tentative valide consomme un essai
-    nb_tentative += 1
+        # Vérifier qu'il existe des mots pour cette longueur
+        words_of_length = [
+            word for word in all_words
+            if len(word) == word_length
+        ]
 
-    # Vérifier si le joueur a gagné
-    if attempt == target:
-        winner = True
-        print("Vous avez gagné !")
-    else:
-        # Afficher le résultat de la tentative
-        print(game.check_letters(attempt, target))
+        if not words_of_length:
+            print(
+                f"Aucun mot de {word_length} lettres "
+                "dans le dictionnaire."
+            )
+            continue
 
-if not winner:
-    print(f"Perdu ! Le mot était {target}.")
+        # Choisir le mot secret
+        target = game.choose_word(all_words, word_length)
+        print(target)
 
-print(game.check_letters(attempt, target))"""
+        # Lancer la partie
+        game_result = interface.run(word_length, target)
+
+        if game_result == "quit":
+            break
+
+        # Afficher le résultat
+        choice = result.run(game_result, target)
+
+        if choice != "replay":
+            break
+
+
+if __name__ == "__main__":
+    main()
