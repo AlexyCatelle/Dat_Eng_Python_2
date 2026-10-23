@@ -1,7 +1,7 @@
 
 import pygame
-import game
-import settings as s
+import app.game as game
+import utils.settings as s
 
 
 

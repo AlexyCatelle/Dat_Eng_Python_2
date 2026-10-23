@@ -1,5 +1,5 @@
 import pygame
-import settings as s
+import utils.settings as s
 
 
 def run(game_result, target):

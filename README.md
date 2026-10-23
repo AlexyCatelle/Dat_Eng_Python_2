@@ -37,7 +37,7 @@ Utilisation du clavier et de la souris.
 
 ## Instructions
 
-- Installer les requirements : ``python -m pip install -r requirements.txt``
+- Installer les requirements : ``python -m pip install -r utils/requirements.txt``
 - Version terminal : ``python terminal_version/app.py``
 - Version interface : ``python main.py``
 

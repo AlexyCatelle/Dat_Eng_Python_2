@@ -1,9 +1,8 @@
-from termcolor import colored
 import random
 
 # Récupérer la liste de mots
 def load_words():
-    with open("mots.txt", "r", encoding="utf-8") as file:
+    with open("utils/mots.txt", "r", encoding="utf-8") as file:
         all_words = [line.strip().upper() for line in file]
     return all_words
 
