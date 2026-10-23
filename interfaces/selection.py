@@ -87,6 +87,10 @@ def run(available_lengths):
                                 current_index + 1
                             ]
 
+                    elif start_rect.collidepoint(event.pos):
+                        confirmed = True
+                        running = False
+
             elif event.type == pygame.KEYDOWN:
 
                 if event.key == pygame.K_LEFT:
@@ -166,24 +170,37 @@ def run(available_lengths):
             True,
             s.white_color
         )
+        # Bouton Commencer
+        start_rect = pygame.Rect(
+            s.widht // 2 - 110,
+            490,
+            220,
+            60
+        )
 
         screen.blit(
             plus_text,
             plus_text.get_rect(center=plus_rect.center)
         )
+        
+        # Bouton Commencer
+        pygame.draw.rect(
+            screen,
+            s.green_color,
+            start_rect,
+            border_radius=10
+        )
 
-        # Instructions
-        help_text = text_font.render(
-            "Clique sur + ou - puis appuie sur Entree",
+        start_text = button_font.render(
+            "Commencer",
             True,
             s.white_color
         )
 
-        help_rect = help_text.get_rect(
-            center=(s.widht // 2, 420)
+        screen.blit(
+            start_text,
+            start_text.get_rect(center=start_rect.center)
         )
-
-        screen.blit(help_text, help_rect)
 
         pygame.display.flip()
         clock.tick(s.fps)
