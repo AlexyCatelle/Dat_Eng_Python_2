@@ -4,22 +4,17 @@ import game
 import settings as s
 
 
-ROWS = 6
-CELL_SIZE = 52
-GAP = 8
-GRID_TOP = 125
-
 
 def draw_grid(screen, word_length, attempts, current_attempt):
     cell_size = min(
-        CELL_SIZE,
-        (s.widht - 40 - GAP * (word_length - 1))
+        s.cell_size,
+        (s.widht - 40 - s.gap * (word_length - 1))
         // word_length
     )
 
     grid_width = (
         word_length * cell_size
-        + (word_length - 1) * GAP
+        + (word_length - 1) * s.gap
     )
     start_x = (s.widht - grid_width) // 2
 
@@ -27,10 +22,10 @@ def draw_grid(screen, word_length, attempts, current_attempt):
         s.font, max(18, int(cell_size * 0.55)), bold=True
     )
 
-    for row in range(ROWS):
+    for row in range(s.rows):
         for col in range(word_length):
-            x = start_x + col * (cell_size + GAP)
-            y = GRID_TOP + row * (cell_size + GAP)
+            x = start_x + col * (cell_size + s.gap)
+            y = s.grid_top + row * (cell_size + s.gap)
 
             rect = pygame.Rect(x, y, cell_size, cell_size)
 
@@ -125,7 +120,7 @@ def run(word_length, target):
                             game_result = "win"
                             running = False
 
-                        elif len(attempts) >= ROWS:
+                        elif len(attempts) >= s.rows:
                             game_result = "lose"
                             running = False
 
