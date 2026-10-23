@@ -41,7 +41,11 @@ Utilisation du clavier et de la souris.
 - Version terminal : ``python terminal_version/app.py``
 - Version interface : ``python main.py``
 
-## Piste d'amélioration
+
+## Schema architecture
+
+![](/attachments/schema_arch.png)
+## Pistes d'amélioration
 
 - Vérification que le mot proposé par l'utlisateur est un mot valide de la langue française.
 
