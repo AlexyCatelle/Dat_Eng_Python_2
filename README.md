@@ -1,5 +1,8 @@
 # Wordle (Devine le mot)
 
+## Binôme
+- Alexy Catelle 
+- Xareni Galindo
 
 ## Le but
 
@@ -27,11 +30,15 @@ Vous disposez de 6 tentatives maximum pour trouver le mot.
 
 ![](/attachments/exemple.png)
 
-
 ## Commandes
 
+Utilisation du clavier et de la souris.
+
+
+## Instructions
+
 - Installer les requirements : ``python -m pip install -r requirements.txt``
-- Version terminal : ``python app.py``
+- Version terminal : ``python terminal_version/app.py``
 - Version interface : ``python main.py``
 
 ## Piste d'amélioration
