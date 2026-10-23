@@ -1,6 +1,6 @@
 
 import pygame
-import settings as s
+import utils.settings as s
 
 
 def run(available_lengths):

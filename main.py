@@ -1,7 +1,7 @@
-import game
-import selection
-import interface
-import result
+import app.game as game
+import interfaces.selection as selection
+import interfaces.interface as interface
+import interfaces.result as result
 
 
 def main():
